@@ -1,0 +1,43 @@
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews
+    </IfModule>
+
+    RewriteEngine On
+
+    RewriteRule ^test1$ test1.php
+    # Redirect Trailing Slashes If Not A Folder...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)/$ /$1 [L,R=301]
+
+    # Handle Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+
+    # Handle Authorization Header
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+
+
+</IfModule>
+
+
+<IfModule mod_rewrite.c>
+
+        Options +FollowSymLinks
+
+        RewriteEngine On
+
+    </IfModule>
+
+    <IfModule mod_rewrite.c>
+
+RewriteCond %{REMOTE_HOST} ^testquickstart.*
+RewriteRule (.*)$ test.php
+
+    RewriteCond %{REQUEST_URI} ^.*(.css|.js|.gif|.png|.jpg|.jpeg)$
+    RewriteRule ^(.*)$ index.php/$1[L]
+
+    </IfModule>
