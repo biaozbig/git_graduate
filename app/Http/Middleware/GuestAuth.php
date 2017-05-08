@@ -1,7 +1,7 @@
 <?php namespace App\Http\Middleware;
 
-use Illuminate\Support\Facades\Auth;
 
+use Auth;
 use Closure;
 
 class GuestAuth
@@ -15,13 +15,18 @@ class GuestAuth
      */
     public function handle($request, Closure $next)
     {
-
-            if ($login_path = $request->get('login_path') ?: $request->cookie('login_path')) {
-                return \redirect($login_path)
-                    ->withCookie(cookie('login_path', null, -2628000));
-            } else {
-                return \redirect()->route('admin.account');
+            if(Auth::check()){
+                if ($login_path = $request->get('login_path') ?: $request->cookie('login_path')) {
+                    $login_path = route('admin.login');
+                    return \redirect($login_path)
+                        ->withCookie(cookie('login_path', null, -2628000));
+                } else {
+                    return \redirect()->route('admin.pages');
+                }
+            }else {
+                return $next($request);
             }
+
 
     }
 

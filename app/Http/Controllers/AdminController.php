@@ -58,7 +58,8 @@ class AdminController extends Controller
         if (is_null($altResponseContent)) {
             $this->layoutData = array_merge([
                 'system_menu' => AdminMenu::getSystemMenu(),
-                'sections_menu' => AdminMenu::getSectionsMenu(),
+                'sections_menu' => Auth::check() ? AdminMenu::getSectionsMenu() : '',
+               // 'sections_menu' => AdminMenu::getSectionsMenu(),
                 //'sections_menu' => '',//10 submenu
                 //'coaster_routes' => Routes::jsonRoutes()
                 'coaster_routes' => ''

@@ -80,7 +80,6 @@ class PageController extends Controller
 
         if($result){
             return redirect()->route('admin.pages');
-
         }
 
     }

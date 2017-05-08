@@ -7,7 +7,6 @@
         <th>来源 </th>
         <th>分类 </th>
         <th>相关地址 </th>
-        <th>相关内容 </th>
         <th></th>
     </tr>
 
@@ -19,8 +18,8 @@
             <td>{!! $menu->author!!}</td>
             <td>{!! $menu->source !!}</td>
             <td>{!! $menu->category !!}</td>
-            <td>{!! $menu->relaive_url !!}</td>
-            <td>{!! $menu->content !!}</td>
+            <td> <a href="{{ route('Custom.Page', ['action' => $menu->relaive_url]) }}" class="btn btn-warning addButton">
+                    <i class="fa fa-link"></i> {!! $menu->relaive_url !!}</a> &nbsp;</td>
 
         </tr>
 

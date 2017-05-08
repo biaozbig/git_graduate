@@ -4,8 +4,19 @@ namespace App\Http\Controllers\sqlModels;
 
 use Eloquent;
 
-class Net2ftp_users extends Eloquent
+class Templates extends Eloquent
 {
     //
-    protected $table = 'net2ftp_users';
+    protected $table = 'templates';
+
+    public static function allData()
+    {
+        return static::get();
+    }
+
+    public static function findInfoById($id)
+    {
+        return static::find($id);
+    }
+
 }

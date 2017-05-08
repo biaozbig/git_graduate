@@ -20,20 +20,21 @@ class AdminAuth
 
         if (Auth::check()) {
 
-            if (empty($routeParts[0])  || empty($routeParts[1]) || $routeParts[1] != 'admin') {
+            if (empty($routeParts[0])  || empty($routeParts[1]) || $routeParts[0] != 'admin') {
                 return abort(403, 'Not a  admin route');
             }
 
-            $controller = !empty($routeParts[2]) ? $routeParts[2] : null;
-            $action = !empty($routeParts[3]) ? $routeParts[3] : null;
+            $controller = !empty($routeParts[1]) ? $routeParts[1] : null;
+            $action = !empty($routeParts[2]) ? $routeParts[2] : null;
             $parameters = $request->route()->parameters();
-
-            if (Auth::actionRoute($controller, $action, $parameters)) {
+            return $next($request);
+            /*if (Auth::actionRoute($controller, $action, $parameters)) {
                 return $next($request);
             } elseif (Auth::admin()) {
                 return abort(403, 'Action not permitted');
-            }
+            }*/
         }
+        $request_uri = $request->getRequestUri();
 
         return \redirect()->route('admin.login')->withCookie(cookie('login_path', $request->getRequestUri()));
     }

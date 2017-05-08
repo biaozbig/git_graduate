@@ -2,7 +2,8 @@
     <tbody>
     <tr>
         <td>Role</td>
-        <td>{!! $user->role->name !!}</td>
+        {{--<td>{!! $user->role->name?:'super admin' !!}</td>--}}
+        <td>super admin</td>
     </tr>
     <tr>
         <td>Login</td>
@@ -18,7 +19,8 @@
     </tr>
     <tr>
         <td>Date Created</td>
-        <td>{!! DateTimeHelper::display($user->created_at, 'short') !!}</td>
+        {{--<td>{!! DateTimeHelper::display($user->created_at, 'short') !!}</td>--}}
+        <td>{!! $user->created_at !!}</td>
     </tr>
     <tr>
         <td>Account Status</td>

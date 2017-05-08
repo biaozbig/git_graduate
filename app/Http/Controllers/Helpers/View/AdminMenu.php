@@ -24,14 +24,14 @@ class AdminMenu
                 'icon' => 'fa fa-tv'
             ],
             'Help' => [
-                'link' => config('coaster::admin.help_link') . '" target="_blank',
+                'link' =>  route('Custom.Page', ['action' => 'help']) . '" target="_blank',
                 'icon' => 'fa fa-life-ring'
             ]
         ];
 
 
        /* if (Auth::admin()) {*/
-
+        if(Auth::check()){
           /*  if (Language::count() > 1) {
                 $page_lang = Language::find(Language::current());
                 $systemMenuItems['Language:' . $page_lang->language] = [
@@ -57,14 +57,14 @@ class AdminMenu
                 'icon' => 'fa fa-sign-out'
             ];
 
-        /*} else {
+        } else {
 
             $systemMenuItems['Login'] = [
-                'link' => route('coaster.admin.login'),
+                'link' => route('admin.login'),
                 'icon' => 'fa fa-lock'
             ];
 
-        }*/
+        }
 
         $systemMenu = '';
         foreach ($systemMenuItems as $systemMenuItem => $details) {
