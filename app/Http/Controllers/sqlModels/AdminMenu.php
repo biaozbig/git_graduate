@@ -17,6 +17,7 @@ class AdminMenu extends Eloquent
         return static::orderBy('order', 'asc')
             ->join('admin_actions','admin_menu.action_id','=','admin_actions.id')
             ->join('admin_controllers','admin_actions.controller_id','=','admin_controllers.id')
+            ->select(array('admin_menu.id as am_id','item_name','icon','admin_actions.id','controller'/*,'admin_actions.id',*/))
             ->get();
    }
 

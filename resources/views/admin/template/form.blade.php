@@ -16,7 +16,7 @@
 
     @endforeach
 
-    {{--<input type="hidden" name="_token"  value="{{ csrf_token() }}">--}}
+    <input type="hidden" name="id"  value="{{ $id }}">
         {{ csrf_field() }}
     {!! $content !!}
         <div class="form-group">

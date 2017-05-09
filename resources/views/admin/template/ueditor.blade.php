@@ -6,7 +6,7 @@
     <label class="control-label col-sm-2">内容</label>
 
     <div class="col-sm-10">
-        <textarea name="content" id="myEditor" ></textarea>
+        <textarea name="content" id="myEditor" >{!! $content !!}</textarea>
         <span class="help-block"></span>
     </div>
 </div>
