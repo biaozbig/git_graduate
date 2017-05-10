@@ -21,6 +21,11 @@ class User extends Eloquent implements AuthenticatableContract, AuthorizableCont
 
     protected $table = 'users';
     protected $hidden = ['password', 'remember_token'];
-
+    public static function limitData($num)
+    {
+        $data = static::limit($num)->get()->all();
+        //$sql = static::toSql();
+        return $data;
+    }
 
 }

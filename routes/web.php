@@ -107,6 +107,7 @@ Route::group(['prefix' => $adminUrl,  'middleware' => [ 'admin']],function () us
     Route::get('addsetting', ['uses' => 'SettingController@addSetting', 'as' => $routeNamePrefix . 'addSetting']);
     Route::get('settings', [ 'uses' => 'SettingController@listSettings','as' => $routeNamePrefix . 'listSetting']);
     Route::post('addsetting', ['uses' => 'SettingController@addSetting', 'as' => $routeNamePrefix . 'addSetting.post']);
+    Route::post('updatesetting', ['uses' => 'SettingController@updateSettingApi', 'as' => $routeNamePrefix . 'updatesetting.post']);
 
     Route::get('menus', ['uses' => 'MenusController@menuManage', 'as' => $routeNamePrefix . 'menus']);
     Route::post('menus/add', ['uses' => 'MenusController@postaddPage', 'as' => $routeNamePrefix . 'menus.add.post']);
@@ -118,6 +119,10 @@ Route::group(['prefix' => $adminUrl,  'middleware' => [ 'admin']],function () us
     Route::get('redirects', ['uses' => 'RedirectsController@getIndex', 'as' => $routeNamePrefix . 'redirects']);
     Route::get('filemanager', ['uses' => 'FilemanagerController@getIndex', 'as' => $routeNamePrefix . 'filemanager']);
     Route::get('users', ['uses' => 'UsersController@getIndex', 'as' => $routeNamePrefix . 'users']);
+
+    Route::get('log', ['uses' => 'LogController@getIndex', 'as' => $routeNamePrefix . 'log']);
+
+
     Route::get('roles', ['uses' => 'RolesController@getIndex', 'as' => $routeNamePrefix . 'roles']);
     Route::get('themes', ['uses' => 'ThemesController@getIndex', 'as' => $routeNamePrefix . 'themes']);
     Route::get('themes/beacons', ['uses' => 'ThemesController@getBeacons', 'as' => $routeNamePrefix . 'themes.beacons']);

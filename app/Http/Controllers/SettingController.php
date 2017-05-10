@@ -51,6 +51,24 @@ class SettingController extends Controller
 
     }
 
+    public function updateSettingApi(Request $request){
+        $datas = $request->all();
+        unset($datas['_token']);
+        foreach ( $datas as $key=>$data){
+            $newdata = array('value'=>$data);
+            //Settings::where('name', $key)->update($newdata);
+            $key = preg_replace('/_/', '.', $key);
+            $setting = Settings::where('name', $key)->get()->all();
+            if(count($setting)>0){
+                if($setting[0]->value != $data){
+                    $setting[0]->value = $data;
+                    $setting[0]->save();
+                }
+            }
+        }
+        return redirect()->route('admin.listSetting');
+    }
+
     /*
      * 列出所有模板
      * */
@@ -58,7 +76,7 @@ class SettingController extends Controller
 
 
        $pages_datas = settings::all();
-        $action = route('admin.addSetting.post');
+        $action = route('admin.updatesetting.post');
         $method = 'POST';
         $this->layoutData['title'] = 'Setting';
         $this->layoutData['content'] = View::make('admin.setting.setting_list',array('site_details'=>$pages_datas,'action'=>$action,'method'=>$method));

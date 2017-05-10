@@ -17,6 +17,11 @@ use Validator;
 
 class Settings extends Eloquent
 {
-
+    public static function getDataByName($name)
+    {
+        $data = static::where('name',$name)->get()->all();
+        //$sql = static::toSql();
+        return $data;
+    }
 
 }

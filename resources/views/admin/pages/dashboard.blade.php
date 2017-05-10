@@ -1,4 +1,4 @@
-<h1>��ҳ</h1>
+﻿<h1>首页</h1>
 <br/>
 
 <div class="row">
@@ -24,16 +24,31 @@
     <div class="col-md-4">
         <div class="well well-home">
             <h3><i class="fa fa-info-circle" aria-hidden="true"></i> Version Details</h3>
-            {{--<ul>
-                <li><strong>Your site:</strong> {{ $upgrade->from }}</li>
-                <li><strong>Latest version:</strong> {{ $upgrade->to }}</li>
+            <ul>
+                <li><strong>Your site name:</strong> {{ $site_name }}</li>
+                <li><strong>Your site email:</strong> {{ $site_email }}</li>
             </ul>
-            @if($upgrade->allowed && $upgrade->required)
-                <p><a class="btn btn-primary" href="{{ route('coaster.admin.system.upgrade') }}">(upgrade)</a></p>
-            @endif
-            @if ($canViewSettings)
-                <p><a href="{{ route('coaster.admin.system') }}" class="btn btn-default"><i class="fa fa-cog"></i> View all settings</a></p>
-            @endif--}}
+                <p><a href="{{ route('admin.listSetting') }}" class="btn btn-default"><i class="fa fa-cog"></i> View all settings</a></p>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="well well-home">
+            <h3><i class="fa fa-pencil" aria-hidden="true"></i>管理用户</h3>
+            {!! $admin_user !!}
+            <p><a class="btn btn-default" href="{{ route('admin.users') }}">View all admin logs</a></p>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="well well-home">
+            <h3><i class="fa fa-pencil" aria-hidden="true"></i> 操作记录</h3>
+            {!! $logs !!}
+            <p><a class="btn btn-default" href="{{ route('admin.log') }}">View all admin logs</a></p>
         </div>
     </div>
 </div>

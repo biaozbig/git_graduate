@@ -16,7 +16,7 @@
 
     @endforeach
 
-    <input type="hidden" name="id"  value="{{ $id }}">
+    <input type="hidden" name="id"  value="{{ isset($id)?$id:'' }}">
         {{ csrf_field() }}
     {!! $content !!}
         <div class="form-group">
