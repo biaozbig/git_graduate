@@ -5,7 +5,7 @@
 {!! $account !!}
 
 @if ($change_password)
-    <a href="{{ route('admin.account.password') }}" class="btn btn-warning"><i class="fa fa-unlock-alt"></i> &nbsp; Change
+    <a href="{{ route('admin.account.resetpassword') }}" class="btn btn-warning"><i class="fa fa-unlock-alt"></i> &nbsp; Change
         Password</a>
 @endif
 {{--

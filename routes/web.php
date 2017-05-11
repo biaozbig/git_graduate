@@ -14,60 +14,6 @@ use Illuminate\Http\Request;
 */
 
 
-/*Route::get('/', function () {
-    return view('welcome');
-});*/
-
-
-/**
- * Display All Tasks
- */
-/*Route::get('/', function () {
-    //
-    $tasks = Task::orderBy('created_at', 'asc')->get();
-
-    return view('tasks', [
-        'tasks' => $tasks
-    ]);
-});*/
-
-/**
- * Add A New Task
- */
-/*Route::post('/task', function (Request $request) {
-    //
-    $validator = Validator::make($request->all(), [
-        'name' => 'required|max:255',
-    ]);
-
-    if ($validator->fails()) {
-        return redirect('/')
-            ->withInput()
-            ->withErrors($validator);
-    }
-
-    $task = new Task;
-    $task->name = $request->name;
-    $task->save();
-
-    return redirect('/');
-    // Create The Task...
-
-});*/
-
-/**
- * Delete An Existing Task
- */
-/*Route::delete('/task/{id}', function ($id) {
-    //
-    Task::findOrFail($id)->delete();
-    return redirect('/');
-});*/
-/*Route::get('/skins/{id}', function () {
-    return view('welcome');
-})->where('id','*')->middleware('skins');
-Route::group(['prefix' => '/skins','middleware' => ['skins']],function(){}
-    );*/
 Route::post('/net2ftp1', 'IndexController@index');
 Route::group(['prefix' => '/modules','middleware' => ['skins']],function(){
     Route::get('/browse/browseindex/{skins}', 'modules\browse\BrowseController@index');
@@ -147,3 +93,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::auth();
 });
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');

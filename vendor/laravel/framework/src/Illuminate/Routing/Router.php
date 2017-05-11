@@ -309,7 +309,7 @@ class Router implements RegistrarContract
         // Password Reset Routes...
         $this->get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm');
         $this->post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
-        $this->get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm');
+        $this->get('password/reset/{token}', ['uses' => 'Auth\ResetPasswordController@showResetForm', 'as' => 'admin.account.resetpassword']);
         $this->post('password/reset', 'Auth\ResetPasswordController@reset');
     }
 
