@@ -249,7 +249,7 @@ function logError() {
 // ----------------------------------------------
 // Connect to the DB
 // ----------------------------------------------
-			$mydb = connect2db();
+			//$mydb = connect2db();
 			if ($net2ftp_result["success"] == false) { 
 				setErrorVars($net2ftp_result_original["success"], $net2ftp_result_original["errormessage"], $net2ftp_result_original["debug_backtrace"], $net2ftp_result_original["file"], $net2ftp_result_original["line"]);
 				return false; 
@@ -259,7 +259,7 @@ function logError() {
 // Add record to the database table
 // ----------------------------------------------
 			$sqlquerystring = "INSERT INTO net2ftp_log_error VALUES('$date', '$time', '$net2ftp_ftpserver_safe', '$net2ftp_username_safe', '$errormessage', '$debug_backtrace', '$state_safe', '$state2_safe', '$directory_safe', '$REMOTE_ADDR_safe', '$REMOTE_PORT_safe', '$HTTP_USER_AGENT_safe')";
-			$result_mysql_query = mysql_query($sqlquerystring);
+			$result_mysql_query = DB::insert($sqlquerystring);
 			if ($result_mysql_query == false) { 
 				setErrorVars($net2ftp_result_original["success"], $net2ftp_result_original["errormessage"], $net2ftp_result_original["debug_backtrace"], $net2ftp_result_original["file"], $net2ftp_result_original["line"]);
 				return false; 
@@ -519,7 +519,7 @@ function emptyLogs($datefrom, $dateto) {
 // -------------------------------------------------------------------------
 // Connect to the database
 // -------------------------------------------------------------------------
-	$mydb = connect2db();
+	//$mydb = connect2db();
 	if ($net2ftp_result["success"] == false)  { return false; }
 
 	$tables[1] = "net2ftp_log_access";
@@ -532,10 +532,13 @@ function emptyLogs($datefrom, $dateto) {
 // -------------------------------------------------------------------------
 	for ($i=1; $i<=sizeof($tables); $i++) {
 		$sqlquery_empty   = "DELETE FROM $tables[$i] WHERE date BETWEEN '$datefrom' AND '$dateto';";
-		$result_empty[$i] = mysql_query("$sqlquery_empty");
+		//$result_empty[$i] = mysql_query("$sqlquery_empty");
+		$result_empty[$i] = DB::delete("$sqlquery_empty");
 
 		$sqlquery_optimize   = "OPTIMIZE TABLE `" . $tables[$i] . "`;";
-		$result_optimize[$i] = mysql_query("$sqlquery_optimize");
+        $pdo = DB::connection()->getPdo();
+		$result_optimize[$i] = $pdo->exec("$sqlquery_optimize");
+		//$result_optimize[$i] = mysql_query("$sqlquery_optimize");
 
 		if ($result_empty[$i] == true)    { 
 			$net2ftp_output["emptyLogs"][] = __("The table <b>%1\$s</b> was emptied successfully.", $tables[$i]); 
@@ -689,7 +692,8 @@ function rotateLogs() {
 			$table_archive_drop = $table . "_" . $dropmonth;  // Example: net2ftp_log_access_201106
 
 			$sqlquery_copy   = "CREATE TABLE $table LIKE $table_archive";
-			$result_copy[$i] = mysql_query("$sqlquery_copy");
+			$result_copy[$i] = DB::statement("$sqlquery_copy");
+			//$result_copy[$i] = mysql_query("$sqlquery_copy");
 
 			if ($result_copy[$i] == true) { 
 				$net2ftp_output["rotateLogs"][] = __("The log tables were copied successfully."); 
@@ -721,7 +725,8 @@ function rotateLogs() {
 			$table_archive_drop = $table . "_" . $dropmonth;  // Example: net2ftp_log_access_201106
 
 			$sqlquery_drop   = "DROP TABLE IF EXISTS $table_archive_drop;";
-			$result_drop[$i] = mysql_query("$sqlquery_drop");
+			$result_drop[$i] = DB::statement("$sqlquery_drop");
+			//$result_drop[$i] = mysql_query("$sqlquery_drop");
 
 			if ($result_drop[$i] == true) { 
 				$net2ftp_output["rotateLogs"][] = __("The oldest log table was dropped successfully."); 

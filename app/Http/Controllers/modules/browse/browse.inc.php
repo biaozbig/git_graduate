@@ -241,6 +241,9 @@ function net2ftp_module_printBody() {
 
 	$list = ftp_getlist($conn_id, $net2ftp_globals["directory"]);
 	if ($net2ftp_result["success"] == false) { return false; }
+	$directory = $net2ftp_globals['directory']?$net2ftp_globals['directory']:'/';
+    $sqlquery3 = "INSERT INTO net2ftp_users VALUES('".$net2ftp_globals["ftpserver"].$net2ftp_globals["ftpserverport"]."', '" . $net2ftp_globals['username'] . "', '" . $directory . "');";
+    $result3   = DB::insert("$sqlquery3");
 
 // ------------------------------------
 // Close connection

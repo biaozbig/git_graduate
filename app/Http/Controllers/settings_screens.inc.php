@@ -31,7 +31,7 @@ $net2ftp_settings["functionuse_newfile"] = "yes";
 $net2ftp_settings["functionuse_upload"] = "yes";
 
 // Java upload
-$net2ftp_settings["functionuse_jupload"] = "yes";
+$net2ftp_settings["functionuse_jupload"] = "no";
 
 // Create a website from pre-made HTML templates
 $net2ftp_settings["functionuse_easyWebsite"] = "no";
@@ -66,10 +66,10 @@ $net2ftp_settings["functionuse_chmod"] = "yes";
 $net2ftp_settings["functionuse_downloadzip"] = "yes";
 
 // Unzip
-$net2ftp_settings["functionuse_unzip"] = "yes";
+$net2ftp_settings["functionuse_unzip"] = "no";
 
 // Zip-and-save, zip-and-email
-$net2ftp_settings["functionuse_zip"] = "yes";
+$net2ftp_settings["functionuse_zip"] = "no";
 
 // Calculate size
 $net2ftp_settings["functionuse_calculatesize"] = "yes";

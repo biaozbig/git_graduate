@@ -47,6 +47,10 @@
 // Check that "sendHttpHeaders" action is only executed once
 // Check that no other actions can be executed if "sendHttpHeaders" has not yet been executed
 // -------------------------------------------------------------------------
+
+	  /*
+	   * 1.sendHttpHeaders动作只需要设置一次，使用常量NET2FTP_SENDHTTPHEADERS作为标志位
+	   * */
 		if ($action == "sendHttpHeaders") {
 			if (defined("NET2FTP_SENDHTTPHEADERS") == true) {
 				echo "Error: please call the net2ftp(\$action) function only once with \$action = \"sendHttpHeaders\"!";
@@ -64,9 +68,18 @@
 // -------------------------------------------------------------------------
 // Global variables
 // -------------------------------------------------------------------------
+
+	  /*
+	   * 2.初始4个全局变量
+	   * $net2ftp_settings：用于记录全局的设定，包含根目录的三个setting文件
+	   * $net2ftp_globals：用于记录一些全局常量，包含路径情况，动作等
+	   * $net2ftp_result：记录回调函数的情况，有四个key，分别为：success，errormessage，debug_backtrace，exit
+	   * $net2ftp_messages：用于记录iso-8859-1编码的格式
+	   * */
 		global $net2ftp_settings, $net2ftp_globals, $net2ftp_result, $net2ftp_messages;
 
 // Set the NET2FTP constant which is used to check if template files are called by net2ftp
+//使用net2ftp函数的状态
 		if (defined("NET2FTP") == false) {
 			define("NET2FTP", 1);
 		}
@@ -128,7 +141,8 @@
 		$net2ftp_globals["application_skinsdir"] = $net2ftp_globals["application_rootdir"] . "/../../skins";
 		//$net2ftp_globals["application_tempdir"]      = $net2ftp_globals["application_rootdir"] . "/temp";
 		// i-MSCP modification
-		$net2ftp_globals["application_tempdir"] = realpath(dirname(__FILE__) . '/../../../../data/tmp/');
+        $public_path = public_path();
+		$net2ftp_globals["application_tempdir"] = $public_path . '/data/tmp/';
 
 // -------------------------------------------------------------------------
 // Set basic settings
@@ -170,10 +184,12 @@
 // Function libraries:
 // 1. Libraries which are always needed
 // 2. Register global variables
-// 3. Function libraries which are needed depending on certain variables 
+// 3. Function libraries which are needed depending on certain variables
 // // --> Do this only once, when $action == "sendHttpHeaders"
 // -------------------------------------------------------------------------
-
+/*
+ * 3.引入所需要的操作文件
+ * */
 		if ($action == "sendHttpHeaders") {
 
 // 1. Libraries which are always needed
@@ -229,7 +245,10 @@
 // -------------------------------------------------------------------------
 // Execute function shutdown() if the script reaches the maximum execution time (usually 30 seconds)
 // -------------------------------------------------------------------------
-		if ($action == "sendHttpHeaders") {
+	/*
+	 * 自动关闭的
+	 * */
+	  if ($action == "sendHttpHeaders") {
 			register_shutdown_function("net2ftp_shutdown");
 		}
 
@@ -237,6 +256,9 @@
 // Log access and rotate logs
 // --> Do this only once, when $action == "sendHttpHeaders"
 // -------------------------------------------------------------------------
+	  /*
+	   * 4.进行log_access和log_error表的记录
+	   * */
 		if ($action == "sendHttpHeaders") {
 			logAccess();
 			if ($net2ftp_result["success"] == false) {

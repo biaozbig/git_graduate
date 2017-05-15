@@ -45,10 +45,19 @@ class IndexController extends Controller
 // ------------------------------------------------------------------------
 // 1. Define the constants NET2FTP_APPLICATION_ROOTDIR and NET2FTP_APPLICATION_ROOTDIR_URL
 // ------------------------------------------------------------------------
+        /*
+         * 设定协议
+         * */
         $http_scheme = "http://";
         if (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == 'on') { $http_scheme = "https://"; }
+        /*
+         * 设定host
+         * */
         $http_host = "";
         if (isset($_SERVER["HTTP_HOST"]) == true) { $http_host = $_SERVER["HTTP_HOST"]; }
+        /*
+         * 设定脚本名字
+         * */
         $script_name = "/index.php/net2ftp";
         if (isset($_SERVER["SCRIPT_NAME"]) == true)  { $script_name = dirname($_SERVER["SCRIPT_NAME"]); }
         elseif (isset($_SERVER["PHP_SELF"]) == true) { $script_name = dirname($_SERVER["PHP_SELF"]); }
@@ -60,17 +69,15 @@ class IndexController extends Controller
 // 2. Include the file /path/to/net2ftp/includes/main.inc.php
 // ------------------------------------------------------------------------
         //require_once("./includes/main.inc.php");
+        require_once(NET2FTP_APPLICATION_ROOTDIR ."/../incHelper/MainIncludenoclass.php");
 
 // ------------------------------------------------------------------------
 // 3. Execute net2ftp($action). Note that net2ftp("sendHttpHeaders") MUST
 //    be called once before the other net2ftp() calls!
 // ------------------------------------------------------------------------
-        require_once(NET2FTP_APPLICATION_ROOTDIR ."/../incHelper/MainIncludenoclass.php");
         net2ftp("sendHttpHeaders");
         global $net2ftp_result,$net2ftp_globals;
         $result = $net2ftp_result["success"] ==false ?false : true;
-        //$test=$net2ftp_globals;
-
         return view('net2ftp/index',['result'=>$result,
          'net2ftp_globals'=>$net2ftp_globals
         ]);
@@ -78,8 +85,6 @@ class IndexController extends Controller
             require_once("./skins/blue/error_wrapped.template.php");
             exit();
         }*/
-
-
 
     }
 
